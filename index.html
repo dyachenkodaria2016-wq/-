@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#5146b8">
+<title>Бази даних — інтерактивний тренажер</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="registration" class="gate">
+  <section class="register-card">
+    <div class="brand-mark">▦</div>
+    <p class="eyebrow">ІНФОРМАТИКА · 9 КЛАС</p>
+    <h1>Бази даних та Microsoft Access</h1>
+    <p class="muted">Інтерактивний навчально-контрольний тренажер</p>
+    <form id="registerForm">
+      <div class="form-grid">
+        <label>Прізвище *<input id="surname" required autocomplete="family-name"></label>
+        <label>Ім’я *<input id="givenName" required autocomplete="given-name"></label>
+        <label>По батькові<input id="patronymic"></label>
+        <label>Клас *<input id="className" required placeholder="9-А"></label>
+        <label class="wide">Навчальний заклад<input id="school"></label>
+      </div>
+      <button class="primary full" type="submit">Розпочати роботу <span>→</span></button>
+    </form>
+    <div id="previousSessions" class="previous"></div>
+    <p class="tiny">Ваші результати зберігаються локально у цьому браузері.</p>
+  </section>
+</div>
+
+<div id="app" class="hidden">
+<header class="topbar">
+  <a class="brand" href="#" aria-label="На головну"><span class="brand-mark small">▦</span><span>Access<span class="brand-light">Trainer</span></span></a>
+  <div class="user-chip" id="userChip"></div>
+  <button class="icon-btn" id="teacherOpen" title="Режим учителя">♙ Учитель</button>
+  <button class="icon-btn" id="newAttempt">＋ Нова спроба</button>
+</header>
+<div class="layout">
+<aside class="sidebar">
+  <div class="side-label">НАВЧАЛЬНИЙ МАРШРУТ</div>
+  <nav id="moduleNav"></nav>
+  <div class="side-progress"><div class="progress-head"><span>Загальний прогрес</span><b id="sidePercent">0%</b></div><div class="progress"><i id="sideProgress"></i></div></div>
+  <button class="side-link" id="resetBtn">↻ Скинути поточну спробу</button>
+</aside>
+<main class="main">
+  <section class="welcome-row">
+    <div class="welcome-copy"><p class="eyebrow">НАВЧАЙСЯ · ТРЕНУЙСЯ · ПЕРЕВІРЯЙ СЕБЕ</p><h1 id="moduleTitle">Основи баз даних</h1><p id="moduleDesc" class="muted">Розпочнімо знайомство з базами даних.</p><div class="welcome-tags"><span>25 інтерактивних вправ</span><span>5 навчальних модулів</span><span>Практика Access</span></div></div><img class="hero-art" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20560%20330%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23b94b50%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%237f252d%22%2F%3E%3C%2FlinearGradient%3E%3Cfilter%20id%3D%22s%22%3E%3CfeDropShadow%20dx%3D%220%22%20dy%3D%2210%22%20stdDeviation%3D%2210%22%20flood-color%3D%22%23552329%22%20flood-opacity%3D%22.16%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Ccircle%20cx%3D%22430%22%20cy%3D%2272%22%20r%3D%2258%22%20fill%3D%22%23f5dede%22%2F%3E%3Ccircle%20cx%3D%2293%22%20cy%3D%22262%22%20r%3D%2242%22%20fill%3D%22%23f7e8e8%22%2F%3E%3Cg%20filter%3D%22url%28%23s%29%22%3E%3Crect%20x%3D%22158%22%20y%3D%2248%22%20width%3D%22320%22%20height%3D%22224%22%20rx%3D%2217%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M175%2048h286a17%2017%200%200%201%2017%2017v27H158V65a17%2017%200%200%201%2017-17%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%2270%22%20r%3D%224%22%20fill%3D%22%23ffdfe0%22%2F%3E%3Ccircle%20cx%3D%22195%22%20cy%3D%2270%22%20r%3D%224%22%20fill%3D%22%23ffdfe0%22%2F%3E%3Ccircle%20cx%3D%22210%22%20cy%3D%2270%22%20r%3D%224%22%20fill%3D%22%23ffdfe0%22%2F%3E%3Ctext%20x%3D%22232%22%20y%3D%2275%22%20font-family%3D%22Arial%22%20font-size%3D%2212%22%20fill%3D%22white%22%20font-weight%3D%22700%22%3E%D0%9C%D0%BE%D1%8F%20%D0%B1%D0%B0%D0%B7%D0%B0%20%D0%B4%D0%B0%D0%BD%D0%B8%D1%85%3C%2Ftext%3E%3Crect%20x%3D%22176%22%20y%3D%22108%22%20width%3D%22125%22%20height%3D%22146%22%20rx%3D%228%22%20fill%3D%22%23f8eeee%22%2F%3E%3Ctext%20x%3D%22190%22%20y%3D%22130%22%20font-family%3D%22Arial%22%20font-size%3D%2211%22%20fill%3D%22%2382343a%22%20font-weight%3D%22700%22%3E%D0%9E%D0%91%E2%80%99%D0%84%D0%9A%D0%A2%D0%98%3C%2Ftext%3E%3Cg%20font-family%3D%22Arial%22%20font-size%3D%2210%22%20fill%3D%22%236c5557%22%3E%3Ctext%20x%3D%22191%22%20y%3D%22154%22%3E%E2%96%A6%20%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%96%3C%2Ftext%3E%3Ctext%20x%3D%22191%22%20y%3D%22180%22%3E%E2%8C%95%20%D0%97%D0%B0%D0%BF%D0%B8%D1%82%D0%B8%3C%2Ftext%3E%3Ctext%20x%3D%22191%22%20y%3D%22206%22%3E%E2%96%A4%20%D0%A4%D0%BE%D1%80%D0%BC%D0%B8%3C%2Ftext%3E%3Ctext%20x%3D%22191%22%20y%3D%22232%22%3E%E2%96%A7%20%D0%97%D0%B2%D1%96%D1%82%D0%B8%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20x%3D%22315%22%20y%3D%22108%22%20width%3D%22145%22%20height%3D%22146%22%20rx%3D%228%22%20fill%3D%22%23fff%22%20stroke%3D%22%23ead5d6%22%2F%3E%3Crect%20x%3D%22315%22%20y%3D%22108%22%20width%3D%22145%22%20height%3D%2225%22%20rx%3D%228%22%20fill%3D%22%23f2dddd%22%2F%3E%3Cg%20stroke%3D%22%23ead5d6%22%3E%3Cpath%20d%3D%22M315%20158h145M315%20184h145M315%20210h145M363%20133v121M410%20133v121%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%2387373d%22%3E%3Crect%20x%3D%22325%22%20y%3D%22143%22%20width%3D%2226%22%20height%3D%226%22%20rx%3D%223%22%2F%3E%3Crect%20x%3D%22371%22%20y%3D%22143%22%20width%3D%2229%22%20height%3D%226%22%20rx%3D%223%22%2F%3E%3Crect%20x%3D%22418%22%20y%3D%22143%22%20width%3D%2229%22%20height%3D%226%22%20rx%3D%223%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23d9a4a7%22%3E%3Crect%20x%3D%22325%22%20y%3D%22168%22%20width%3D%2225%22%20height%3D%225%22%20rx%3D%222%22%2F%3E%3Crect%20x%3D%22371%22%20y%3D%22168%22%20width%3D%2225%22%20height%3D%225%22%20rx%3D%222%22%2F%3E%3Crect%20x%3D%22418%22%20y%3D%22168%22%20width%3D%2225%22%20height%3D%225%22%20rx%3D%222%22%2F%3E%3Crect%20x%3D%22325%22%20y%3D%22194%22%20width%3D%2225%22%20height%3D%225%22%20rx%3D%222%22%2F%3E%3Crect%20x%3D%22371%22%20y%3D%22194%22%20width%3D%2225%22%20height%3D%225%22%20rx%3D%222%22%2F%3E%3Crect%20x%3D%22418%22%20y%3D%22194%22%20width%3D%2225%22%20height%3D%225%22%20rx%3D%222%22%2F%3E%3Crect%20x%3D%22325%22%20y%3D%22220%22%20width%3D%2225%22%20height%3D%225%22%20rx%3D%222%22%2F%3E%3Crect%20x%3D%22371%22%20y%3D%22220%22%20width%3D%2225%22%20height%3D%225%22%20rx%3D%222%22%2F%3E%3Crect%20x%3D%22418%22%20y%3D%22220%22%20width%3D%2225%22%20height%3D%225%22%20rx%3D%222%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cg%20filter%3D%22url%28%23s%29%22%3E%3Ccircle%20cx%3D%22116%22%20cy%3D%22118%22%20r%3D%2243%22%20fill%3D%22%23fff%22%2F%3E%3Ccircle%20cx%3D%22116%22%20cy%3D%22118%22%20r%3D%2224%22%20fill%3D%22none%22%20stroke%3D%22%23a4373a%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22m134%20136%2018%2018%22%20stroke%3D%22%23a4373a%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%22206%22%20width%3D%22102%22%20height%3D%2258%22%20rx%3D%2212%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M68%20226h65M68%20239h45%22%20stroke%3D%22%23c8797d%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%2F%3E%3Ccircle%20cx%3D%22484%22%20cy%3D%22257%22%20r%3D%2224%22%20fill%3D%22%23f1d5d7%22%2F%3E%3Cpath%20d%3D%22m473%20257%208%208%2015-18%22%20fill%3D%22none%22%20stroke%3D%22%2396383f%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Ілюстрація бази даних: таблиці, картки та пошук">
+    <div class="score-card"><span>Поточний результат</span><strong id="score">0/25</strong><small id="grade">Оцінка: —</small></div>
+  </section>
+  <section class="stats-strip">
+    <div><span>Вправа</span><b id="exerciseNo">1 / 25</b></div>
+    <div><span>Виконано</span><b id="doneCount">0</b></div>
+    <div><span>Спроб</span><b id="attemptCount">0</b></div>
+    <div><span>Час роботи</span><b id="totalTime">00:00</b></div>
+  </section>
+  <section id="exercisePanel" class="exercise-card"></section>
+  <section class="bottom-actions">
+    <button class="secondary" id="prevBtn">← Попереднє</button>
+    <div class="action-right"><button class="ghost" id="hintBtn">◎ Підказка</button><button class="primary" id="checkBtn">Перевірити</button><button class="secondary" id="nextBtn">Наступне →</button></div>
+  </section>
+  <section class="report-short">
+    <div><b>Підсумки та звіт</b><p class="muted">Переглянь статистику в будь-який момент і збережи її у PDF.</p></div>
+    <div class="report-buttons"><button class="secondary" id="reportPreview">Попередній перегляд</button><button class="primary" id="reportDownload">⬇ Завантажити звіт</button><button class="secondary" id="reportPdf">Друк / PDF</button><button class="ghost" id="exportJson">Експорт JSON</button></div>
+  </section>
+</main>
+</div>
+</div>
+
+<div id="teacherModal" class="modal hidden">
+ <div class="modal-card wide-modal"><button class="close" id="teacherClose">×</button><p class="eyebrow">ПАНЕЛЬ УЧИТЕЛЯ</p><h2>Результати учасників</h2>
+ <div id="teacherContent"></div>
+ <div class="toolbar"><button class="secondary" id="exportAll">Експорт усіх JSON</button><label class="secondary file-label">Імпорт JSON<input type="file" id="importJson" accept=".json,application/json"></label><button class="secondary" id="exportCsv">Експорт CSV</button></div>
+ <p class="tiny">Пароль у статичному сайті є лише бар’єром від випадкового доступу, а не справжньою автентифікацією. Для захисту потрібен сервер.</p></div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body></html>
